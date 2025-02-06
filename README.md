@@ -1,4 +1,4 @@
-#Rakshak - A Women Safety App
+Rakshak - A Women Safety App
 
 Presented by: Team winRARiors
 
