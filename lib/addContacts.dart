@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
-
 import 'contactsm.dart';
 import 'customButton.dart';
 import 'dbservices.dart';
@@ -40,8 +39,8 @@ class _AddContactsState extends State<AddContacts> {
       Fluttertoast.showToast(msg: "Contact deleted.",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.pink.shade50,
-          textColor: Colors.pinkAccent,
+          backgroundColor: Colors.white,
+          textColor: Color(0xFF78143C),
           fontSize: 16.0);
     }
   }
@@ -56,11 +55,11 @@ class _AddContactsState extends State<AddContacts> {
 
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color.fromRGBO(188, 66, 107, 1),
+        backgroundColor: Colors.white,
         title: Center(
-          child: Text('Guardians',style: GoogleFonts.cinzel(
-            fontSize: 25,
-            color: Colors.pink.shade50,
+          child: Text('Guardians',style: GoogleFonts.italiana(
+            fontSize: 36,
+            color: Color(0xFF78143C),
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.bold,
           ),
@@ -113,7 +112,7 @@ class _AddContactsState extends State<AddContacts> {
                           },
                           icon: Icon(
                             Icons.delete_forever,
-                            color: Colors.pinkAccent,
+                            color: Color(0xFF78143C),
                           ),
                         ),
                       ),
@@ -232,19 +231,20 @@ class _ContactsPageState extends State<ContactsPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // Removes the back arrow
-        backgroundColor: Color.fromRGBO(188, 66, 107, 1),
+        backgroundColor: Colors.white,
         title: Center(
           child: Text(
             'Contacts',
-            style: GoogleFonts.cinzel(
-              fontSize: 25,
-              color: Colors.pink.shade50,
+            style: GoogleFonts.italiana(
+              fontSize: 36,
+              color: Color(0xFF78143C),
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
       ),
+      backgroundColor: Colors.white,
       body: contacts.isEmpty
           ? Center(child: CircularProgressIndicator())
           : Column(
@@ -260,7 +260,7 @@ class _ContactsPageState extends State<ContactsPage> {
                 prefixIcon: Icon(Icons.search, color: Colors.grey),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: Colors.pinkAccent),
+                  borderSide: BorderSide(color: Color(0xFF78143C)),
                 ),
                 filled: true,
                 fillColor: Colors.grey.shade100,
@@ -346,15 +346,15 @@ class _ContactsPageState extends State<ContactsPage> {
       Fluttertoast.showToast(msg : "Contact added successfully.",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.pink.shade50,
-          textColor: Colors.pinkAccent,
+          backgroundColor: Color(0xFF78143C),
+          textColor: Colors.pink.shade50,
           fontSize: 16.0);
     }else{
       Fluttertoast.showToast(msg : "Failed to add contacts.",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.pinkAccent,
-          textColor: Colors.white,
+          backgroundColor: Color(0xFF78143C),
+          textColor: Colors.pink.shade50,
           fontSize: 16.0);
     }
     Navigator.pop(context, TContact);  // Pass the contact object back, not a bool

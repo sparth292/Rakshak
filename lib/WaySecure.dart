@@ -23,7 +23,7 @@ class _WaySecureState extends State<WaySecure> {
   // List of unsafe zones
   final List<Map<String, dynamic>> unsafeZones = [
     {
-      'location': LatLng(19.17604070346859, 72.86278331232963),
+      'location': LatLng(19.2487157584365, 72.98040707409268),
       'radius': 2000.0,
       'name': 'Zone 1',
       'newsLink':
@@ -192,11 +192,11 @@ class _WaySecureState extends State<WaySecure> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: const Color.fromRGBO(188, 66, 107, 1),
+        backgroundColor: Color(0xFF78143C),
         title: Center(
           child: Text(
             'WaySecure',
-            style: GoogleFonts.cinzel(
+            style: GoogleFonts.italiana(
               fontSize: 25,
               color: Colors.pink.shade50,
               fontStyle: FontStyle.normal,

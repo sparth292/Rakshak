@@ -355,10 +355,10 @@ class CustomCardsScreen extends StatelessWidget {
                 SizedBox(height: 9),
                 customCard(
                   context: context,
-                  title: 'WaySecure',
-                  description1: 'Detects location',
-                  description2: 'for user safety',
-                  imagePath: 'RImages/mapping.png',
+                  title: 'CareConnect',
+                  description1: 'Enables users to',
+                  description2: 'add contacts',
+                  imagePath: 'RImages/careConnect.png',
                   onTapPage: AddContacts(),
                 ),
                 // customCard(
