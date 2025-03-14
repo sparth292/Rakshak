@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rakshak_backup_final/WaySecure.dart';
 import 'package:rakshak_backup_final/addContacts.dart';
+import 'package:rakshak_backup_final/profile_page.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:telephony_sms/telephony_sms.dart';
@@ -19,6 +20,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rakshak_backup_final/splashscreen.dart';
 import 'contactsm.dart';
 import 'dbservices.dart';
+
 // import 'package:firebase_auth/firebase_auth.dart';
 void main() {
   runApp(HomePage());
@@ -38,6 +40,8 @@ class HomePage extends StatelessWidget {
 // signout()async{
 //   await FirebaseAuth.instance.signOut();
 // }
+
+
 
 class Navbar extends StatefulWidget {
   @override
@@ -599,28 +603,6 @@ class SettingsPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // final user = FirebaseAuth.instance.currentUser;
-    return Scaffold(
-        appBar: AppBar(title: Text('Profile')),
-        body: Column(
-          children: [
-            Center(child: Text('Profile Page')),
-            // Text("${user!.email}"),
-            // FloatingActionButton(
-            //   onPressed: (()=>signout()),
-            //   child: Icon(Icons.login_rounded),
-            // ),
-          ],
-
-        )
-
     );
   }
 }
