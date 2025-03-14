@@ -17,7 +17,6 @@ import 'package:rakshak_backup_final/services/bus_station.dart';
 import 'package:rakshak_backup_final/services/railway_station.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rakshak_backup_final/splashscreen.dart';
-
 import 'contactsm.dart';
 import 'dbservices.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -81,7 +80,7 @@ class _NavbarState extends State<Navbar> {
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.pink.shade50,
-        textColor: Colors.pinkAccent,
+        textColor: Color(0xFF78143C),
         fontSize: 16.0,
       );
       return null;
@@ -245,7 +244,7 @@ class _NavbarState extends State<Navbar> {
       body: _pages[_currentIndex], // Display current page
       bottomNavigationBar: CurvedNavigationBar(
         index: _currentIndex,
-        color: Color.fromRGBO(188, 66, 107, 1),
+        color: Color(0xFF78143C),
         backgroundColor: Colors.transparent,
         animationDuration: const Duration(milliseconds: 300),
         items: [
@@ -307,13 +306,14 @@ class CustomCardsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(188, 66, 107, 1),
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
         title: Column(
           children: [
             Center(
-              child: Text('Rakshak',style: GoogleFonts.cinzel(
-                fontSize: 25,
-                color: Colors.pink.shade50,
+              child: Text('Rakshak',style: GoogleFonts.italiana(
+                fontSize: 30,
+                color: Color(0xFF78143C),
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.bold,
               ),
@@ -392,7 +392,7 @@ class CustomCardsScreen extends StatelessWidget {
         height: 150,
         width: 350,
         child: Card(
-          color: Colors.pink.shade50,
+          color: Colors.white,
           elevation: 4,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -478,11 +478,11 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(188, 66, 107, 1),
+        backgroundColor: Colors.white,
         title: Center(
-          child: Text('Settings',style: GoogleFonts.cinzel(
-            fontSize: 25,
-            color: Colors.pink.shade50,
+          child: Text('Settings',style: GoogleFonts.italiana(
+            fontSize: 30,
+            color: Color(0xFF78143C),
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.bold,
           ),
@@ -497,51 +497,54 @@ class SettingsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              Text(
-                "Manage Permissions",
-                style: GoogleFonts.comfortaa(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              Text(
-                "To ensure the best user experience, please grant the following permissions",
-                style: GoogleFonts.comfortaa(
-                  fontSize: 15,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(height: 20),
+              // Text(
+              //   "Manage Permissions",
+              //   style: GoogleFonts.comfortaa(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.bold,
+              //     color: Colors.black,
+              //   ),
+              // ),
+              // Text(
+              //   "To ensure the best user experience, please grant the following permissions",
+              //   style: GoogleFonts.comfortaa(
+              //     fontSize: 15,
+              //     color: Colors.grey,
+              //   ),
+              // ),
+              SizedBox(height: 10),
               buildPermissionTile(
                 context,
                 icon: Icons.camera_alt,
                 title: 'Camera',
-                description: 'Allows gender detection during user signup.',
+                description: 'Used for gender detection in app.',
                 onPressed: () => requestPermission(context, Permission.camera),
               ),
+              SizedBox(height: 2,),
               buildPermissionTile(
                 context,
                 icon: Icons.mic,
                 title: 'Microphone',
-                description: 'Required for recording audio during emergencies.',
+                description: 'Required for voice recognition.',
                 onPressed: () => requestPermission(context, Permission.microphone),
               ),
+              SizedBox(height: 2,),
               buildPermissionTile(
                 context,
                 icon: Icons.location_on,
                 title: 'Location',
-                description: 'Required for real-time tracking and safe/danger zone mapping.',
+                description: 'Required for real-time location tracking.',
                 onPressed: () => requestPermission(context, Permission.location),
               ),
+              SizedBox(height: 2,),
               buildPermissionTile(
                 context,
                 icon: Icons.notifications,
                 title: 'Notification',
-                description: 'Required to send alerts and important notifications.',
+                description: 'Required to send notifications.',
                 onPressed: () => requestPermission(context, Permission.notification),
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 100,),
             ],
           ),
         ),
@@ -559,11 +562,11 @@ class SettingsPage extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.pink.shade50,
+        color: Colors.white,
       ),
       child: Row(
         children: [
-          Icon(icon, color: Color.fromRGBO(188, 66, 107, 1), size: 30),
+          Icon(icon, color: Color(0xFF78143C), size: 30),
           SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -577,11 +580,11 @@ class SettingsPage extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 2,),
+                SizedBox(height: 6,),
                 if (description.isNotEmpty)
                   Text(
                     description,
-                    style: TextStyle(
+                    style: GoogleFonts.comfortaa(
                       fontSize: 14,
                       color: Colors.grey[700],
                     ),
@@ -589,6 +592,7 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(width: 4,),
           customButton(
             onPressed: onPressed,
             title: "Request",
@@ -663,7 +667,7 @@ class customButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        backgroundColor: Color.fromRGBO(188, 66, 107, 1),
+        backgroundColor: Color(0xFF78143C),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -671,7 +675,7 @@ class customButton extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: TextStyle(fontSize: 14, color: Colors.white),
+        style: GoogleFonts.comfortaa(fontSize: 14, color: Colors.white),
       ),
     );
   }

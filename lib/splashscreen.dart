@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:rakshak_backup_final/Features/Feature1.dart';
 import 'package:rakshak_backup_final/home_page.dart'; // Import HomePage
-
+import 'package:google_fonts/google_fonts.dart';
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(188, 66, 107, 1),
+      backgroundColor: Color(0xFF78143C),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,18 +34,26 @@ class _SplashScreenState extends State<SplashScreen> {
                 .fadeIn(duration: Duration(seconds: 2))
                 .scale(duration: Duration(seconds: 2)),
             SizedBox(height: 20),
-            Image.asset(
-              'RImages/rakshaktxt.jpeg',
-              height: 50,
-              width: 200,
-            )
+            // Image.asset(
+            //   'RImages/rakshaktxt.jpeg',
+            //   height: 50,
+            //   width: 200,
+            // )
+          Text(
+            "RAKSHAK",
+            style: GoogleFonts.italiana(
+              fontSize: 50,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          )
                 .animate()
                 .slideY(begin: 1, end: 0, duration: Duration(seconds: 2))
                 .fadeIn(duration: Duration(seconds: 2)),
             SizedBox(height: 10),
             Text(
-              "𝑨 𝒃𝒐𝒏𝒅 𝒕𝒉𝒂𝒕 𝒌𝒆𝒆𝒑𝒔 𝒚𝒐𝒖 𝒔𝒂𝒇𝒆,",
-              style: TextStyle(
+              "A bond that keeps you safe,",
+              style: GoogleFonts.comfortaa(
                 fontSize: 20.0,
                 color: Color(0xFFFFC1CC),
                 fontWeight: FontWeight.bold,
@@ -54,8 +63,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 .slideY(begin: 1, end: 0, duration: Duration(seconds: 2), delay: Duration(milliseconds: 200))
                 .fadeIn(duration: Duration(seconds: 2)),
             Text(
-              "𝒆𝒗𝒆𝒓𝒚 𝒎𝒊𝒏𝒖𝒕𝒆, 𝒆𝒗𝒆𝒓𝒚 𝒅𝒂𝒚.",
-              style: TextStyle(
+              "every minute, every day.",
+              style: GoogleFonts.comfortaa(
                 fontSize: 20.0,
                 color: Color(0xFFFFC1CC),
                 fontWeight: FontWeight.bold,
