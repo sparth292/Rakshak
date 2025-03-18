@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rakshak_backup_final/ChatList.dart';
 import 'package:rakshak_backup_final/WaySecure.dart';
 import 'package:rakshak_backup_final/addContacts.dart';
 import 'package:rakshak_backup_final/profile_page.dart';
@@ -350,7 +351,7 @@ class CustomCardsScreen extends StatelessWidget {
                   description1: 'Enables users to',
                   description2: 'stay connected',
                   imagePath: 'RImages/communitychat.png',
-                  onTapPage: CommunityChatPage(),
+                  onTapPage: ChatListScreen(),
                 ),
                 SizedBox(height: 9),
                 customCard(

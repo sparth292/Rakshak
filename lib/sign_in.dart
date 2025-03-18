@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rakshak_backup_final/sign_up.dart';
-import 'package:rakshak_backup_final/custom_scaffold.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rakshak_backup_final/splashscreen.dart';
+import 'gender_detection/gender_detection.dart';
+import 'package:rakshak_backup_final/sign_up.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:rakshak_backup_final/home_page.dart';
+import 'home_page.dart';
+import 'sign_up.dart';
+import 'custom_scaffold.dart';
+
+import 'custom_scaffold.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
@@ -14,8 +20,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -37,7 +43,7 @@ class _SignInState extends State<SignIn> {
 
     if (email.isEmpty || password.isEmpty) {
       setState(() {
-        _errorMessage = 'Please fill in all fields.';
+        _errorMessage = '⚠️ Please enter both email and password.';
         _isLoading = false;
       });
       return;
@@ -50,33 +56,47 @@ class _SignInState extends State<SignIn> {
         password: password,
       );
 
-      // Retrieve UUID from Firestore
       final userDoc = await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user!.uid)
           .get();
 
       if (userDoc.exists) {
-        final String userUuid = userDoc['uuid'];
-        // Save UUID to SharedPreferences
+        final String userUuid = userDoc.data()?['uuid'] ?? '';
+
+        // Save login state and UUID
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_uuid', userUuid);
         await prefs.setBool('isLoggedIn', true);
 
-        // Navigate to the next screen (e.g., HomePage)
+        // Navigate to HomePage
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => SplashScreen()),
         );
       } else {
-        throw Exception("User data not found in Firestore.");
+        setState(() {
+          _errorMessage = "⚠️ User data not found in Firestore.";
+        });
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
-        _errorMessage = e.message ?? 'An unknown error occurred.';
+        switch (e.code) {
+          case 'user-not-found':
+            _errorMessage = "⚠️ No user found for this email.";
+            break;
+          case 'wrong-password':
+            _errorMessage = "⚠️ Incorrect password.";
+            break;
+          case 'invalid-email':
+            _errorMessage = "⚠️ Invalid email format.";
+            break;
+          default:
+            _errorMessage = "⚠️ ${e.message}";
+        }
       });
     } catch (e) {
       setState(() {
-        _errorMessage = 'An unexpected error occurred: $e';
+        _errorMessage = '⚠️ An error occurred: $e';
       });
     } finally {
       setState(() {
@@ -91,10 +111,7 @@ class _SignInState extends State<SignIn> {
       resizeToAvoidBottomInset: false,
       child: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: SizedBox(height: 10),
-          ),
+          Expanded(flex: 1, child: SizedBox(height: 10)),
           Expanded(
             flex: 7,
             child: Container(
@@ -120,102 +137,92 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                      labelStyle: TextStyle(color: Colors.grey.shade700),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Icon(Icons.email,
-                          color: Colors.pinkAccent.shade700),
-                    ),
-                  ),
+                  _buildTextField(_emailController, "Email", Icons.email),
                   const SizedBox(height: 20),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      labelStyle: TextStyle(color: Colors.grey.shade700),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      prefixIcon: Icon(Icons.lock,
-                          color: Colors.pinkAccent.shade700),
-                      suffixIcon:
-                      const Icon(Icons.visibility_off, color: Colors.grey),
-                    ),
-                  ),
+                  _buildTextField(_passwordController, "Password", Icons.lock,
+                      obscure: true),
                   const SizedBox(height: 20),
                   if (_errorMessage != null)
-                    Text(
-                      _errorMessage!,
-                      style: const TextStyle(color: Colors.red),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        _errorMessage!,
+                        style: const TextStyle(color: Colors.red, fontSize: 14),
+                      ),
                     ),
                   const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: _isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : ElevatedButton(
-                      onPressed: (){
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => Navbar())
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.pinkAccent.shade700,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        "Sign in",
-                        style: GoogleFonts.comfortaa(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  _buildSignInButton(),
                   const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account? ",
-                        style: GoogleFonts.comfortaa(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUp()),
-                          );
-                        },
-                        child: Text(
-                          "Sign up",
-                          style: GoogleFonts.comfortaa(
-                            color: Colors.pinkAccent.shade700,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  _buildSignUpOption(),
                   const Spacer(),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
+
+  Widget _buildTextField(TextEditingController controller, String label,
+      IconData icon,
+      {bool obscure = false}) {
+    return TextField(
+      controller: controller,
+      obscureText: obscure,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        prefixIcon: Icon(icon, color: Colors.pinkAccent.shade700),
+      ),
+    );
+  }
+
+  Widget _buildSignInButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ElevatedButton(
+        onPressed: _signIn,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.pinkAccent.shade700,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12)),
+        ),
+        child: Text(
+          "Sign in",
+          style: GoogleFonts.comfortaa(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSignUpOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "Don't have an account? ",
+          style: GoogleFonts.comfortaa(
+              color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const SignUp()));
+          },
+          child: Text(
+            "Sign up",
+            style: GoogleFonts.comfortaa(color: Colors.pinkAccent.shade700),
+          ),
+        ),
+      ],
+    );
+  }
 }
+

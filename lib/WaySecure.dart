@@ -23,7 +23,7 @@ class _WaySecureState extends State<WaySecure> {
   // List of unsafe zones
   final List<Map<String, dynamic>> unsafeZones = [
     {
-      'location': LatLng(19.2487157584365, 72.98040707409268),
+      'location': LatLng(19.072653011441478, 72.89883502349292),
       'radius': 2000.0,
       'name': 'Zone 1',
       'newsLink':

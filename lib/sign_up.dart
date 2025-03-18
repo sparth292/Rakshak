@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'custom_scaffold.dart';
+import 'sign_in.dart';
 import 'package:rakshak_backup_final/sign_in.dart';
-import 'package:rakshak_backup_final/custom_scaffold.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'custom_scaffold.dart';
+import 'gender_detection/gender_detection.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -25,60 +30,30 @@ class _SignUpState extends State<SignUp> {
   bool _isLoading = false;
 
   Future<void> _signUp() async {
-    if (_passwordController.text != _confirmPasswordController.text) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Passwords do not match')),
-      );
-      return;
-    }
-
-    if (_nameController.text.isEmpty ||
-        _emailController.text.isEmpty ||
-        _passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all fields')),
-      );
-      return;
-    }
-
     try {
-      setState(() {
-        _isLoading = true;
-      });
-
-      // Create user with Firebase Authentication
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      final UserCredential userCredential =
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
 
-      // Save user details to Firestore
-      await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'username': _nameController.text.trim(),
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
         'email': _emailController.text.trim(),
-        'uuid': userCredential.user!.uid,
+        'uuid': userCredential.user!.uid,  // Ensure UUID is stored
+        'createdAt': Timestamp.now(),
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created successfully!')),
-      );
-
-      // Navigate to Sign In screen
+      // Navigate to login
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SignIn()),
+        MaterialPageRoute(builder: (context) => SignIn()),
       );
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message ?? 'An error occurred')),
-      );
-    } finally {
       setState(() {
-        _isLoading = false;
+        String? _errorMessage = e.message;
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(

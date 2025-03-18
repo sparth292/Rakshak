@@ -24,7 +24,7 @@ class _Feature2screenState extends State<Feature2screen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/gender3.png',
+                      'RImages/genderTick.jpeg',
                       height: 150,
                     ),
                     const SizedBox(height: 20),

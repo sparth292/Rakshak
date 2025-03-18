@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rakshak_backup_final/home_page.dart';
+import 'package:rakshak_backup_final/userOrGuardian.dart';
+import 'package:rakshak_backup_final/welcome_screen.dart';
 import '../customButton.dart';
 import 'package:rakshak_backup_final/gender_detection/gender_detection.dart';
 
@@ -26,7 +28,7 @@ class _Feature1screenState extends State<Feature3screen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/maps.png',
+                      'RImages/deathImage.jpeg',
                       height: 150,
                     ),
                     const SizedBox(height: 20),
@@ -81,7 +83,7 @@ class _Feature1screenState extends State<Feature3screen> {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => GenderVerification()),
+                        MaterialPageRoute(builder: (context) => userOrGuardian()),
                       );// Navigate to the next screen
                     },
                     text: "Next",

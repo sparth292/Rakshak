@@ -26,7 +26,7 @@ class _Feature1screenState extends State<Feature1screen> {
                     Hero(
                       tag: 'sosImage',
                       child: Image.asset(
-                        'assets/images/sos3.png',
+                        'RImages/sosBell.jpeg',
                         height: 150,
                       ),
                     ),
