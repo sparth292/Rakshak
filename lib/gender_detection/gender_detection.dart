@@ -150,12 +150,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             Expanded(
               child: cameraController == null || !cameraController!.value.isInitialized
                   ? const Center(child: CircularProgressIndicator())
-                  : ClipRRect(
-                borderRadius: BorderRadius.circular(150), // 🔴 Make it a perfect circle
-                child: AspectRatio(
-                  aspectRatio: 1, // Ensure perfect circle aspect ratio
+                  : ClipOval(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.45,
+                  width: MediaQuery.of(context).size.width * 0.9,
                   child: CameraPreview(cameraController!),
                 ),
+                // 🔴 Make it a perfect circle
+                // child: AspectRatio(
+                //
+                //   aspectRatio: 1, // Ensure perfect circle aspect ratio
+                //   child: CameraPreview(cameraController!),
+                // ),
               ),
             ),
             Row(

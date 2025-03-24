@@ -57,7 +57,7 @@ class userOrGuardian extends StatelessWidget {
                     child: SignupButton(
                       buttonText: "Guardian",
                       ontap: AlertDialog(
-                        title: const Text("Coming Soon"),
+                        title: const Text("Coming Soon..."),
                         content: const Text("The Guardian Map feature will be added in a future update."),
                         actions: [
                           TextButton(
