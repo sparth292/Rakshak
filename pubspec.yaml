@@ -51,6 +51,7 @@ dependencies:
   firebase_auth:
   flutter_launcher_icons:
   flutter_native_splash:
+  http: ^1.1.0
 
 
 
