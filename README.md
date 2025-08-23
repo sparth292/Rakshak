@@ -30,7 +30,6 @@ Real-time notifications & SMS alerts warn users entering unsafe zones.
 
 Tech Used: Flutter OSM, Local Notifications, and SMS Packages.
 
-
 3️⃣ SheConnect - Anonymous Location-Based Group Chats
 
 Community chat system to share updates or seek help.
