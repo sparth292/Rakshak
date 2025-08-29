@@ -76,4 +76,4 @@ Created by, winRARiors:
 
 3.Member 2: Parth S. Salunke [https://github.com/sparth292]
 
-4.Member 3: Deep M. Bandekar [https://github.com/Deep061007]
+4.Member 3: Deep M. Bandekar [https://github.com/deep-0613]
