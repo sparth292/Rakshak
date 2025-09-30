@@ -1,7 +1,7 @@
 ## Rakshak
 Rakshak - A Women Safety App
 
-Presented by: Team winRARiors
+Presented by: Team WinRARiors
 
 Rakshak is an AI-powered women’s safety app designed to provide security, awareness, and emergency response features, ensuring a safer digital and physical space for women.
 
